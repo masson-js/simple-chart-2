@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div id="chart-container"></div>
+  <script>
+    // Sample dataset (you can replace this with your own data)
+    const dataset = [10, 20, 30, 40, 50];
+  
+    // Set the dimensions of the chart
+    const width = 400;
+    const height = 300;
+  
+    // Create a scale for mapping data values to the chart's height
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(dataset)]) // Adjust the domain based on your data
+      .range([0, height]);
+  
+    // Create an SVG element to contain the chart
+    const svg = d3.select("#chart-container")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+  
+    // Create and style the bars
+    svg.selectAll("rect")
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("x", (d, i) => i * (width / dataset.length))
+      .attr("y", (d) => height - yScale(d))
+      .attr("width", width / dataset.length - 2) // Adjust the gap between bars
+      .attr("height", (d) => yScale(d))
+      .attr("fill", "blue"); // You can customize the color
+  
+  </script>
+</body>
+</html>
